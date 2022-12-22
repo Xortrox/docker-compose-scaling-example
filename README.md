@@ -1,5 +1,7 @@
 # Introduction
 
+It's crucial to not bind to anything other than 127.0.0.1 like the current "port:" configurations are doing unless you are behind a strict firewall already.
+
 ## Requirements
 Requires https://hub.docker.com/ account for storing images non-publicly
 Requires the host machine to run docker with docker-compose/docker compose
