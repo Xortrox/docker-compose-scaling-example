@@ -1,0 +1,9 @@
+version: "2.3"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: genfanad/backend
+

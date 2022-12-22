@@ -1,0 +1,51 @@
+version: "2.3"
+
+services:
+  mysql:
+    image: mariadb:10.2.21-bionic
+    volumes:
+      - /data/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=fill_me_in
+      - MYSQL_PASSWORD=fill_me_in
+    command: --sql-mode="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    port: "127.0.0.1:3306:3306"
+    networks:
+      - bridged
+  backend-w1:
+    depends_on:
+      - mysql
+    image: genfanad/backend
+    ports:
+      - "127.0.0.1:7777:7777"
+    environment:
+      - DB_HOSTNAME=fill_me_in
+      - DB_USERNAME=fill_me_in
+      - DB_PASSWORD=fill_me_in
+      - DB_DATABASE=fill_me_in
+    working_dir: /home/genfanad
+    stdin_open: true
+    tty: true
+    restart: always
+    networks:
+      - bridged
+  backend-w2:
+    depends_on:
+      - mysql
+    image: genfanad/backend
+    ports:
+      - "127.0.0.1:7776:7777"
+    environment:
+      - DB_HOSTNAME=fill_me_in
+      - DB_USERNAME=fill_me_in
+      - DB_PASSWORD=fill_me_in
+      - DB_DATABASE=fill_me_in
+    working_dir: /home/genfanad
+    stdin_open: true
+    tty: true
+    restart: always
+    networks:
+      - bridged
+networks:
+  bridged:
+    driver: bridge
